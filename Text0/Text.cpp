@@ -186,6 +186,12 @@ void print_data2(int * data2)
     }
 }
 
+void fill_zero(int * data2)
+{
+    for (int i = 2; i < data2[0] * data2[1]; i++)
+        data2[i] = 0;
+}
+
 int char_to_digit(char symbol)
 {
     return symbol - '0';

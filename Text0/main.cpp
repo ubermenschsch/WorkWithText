@@ -20,6 +20,7 @@ int main()
     input_size2(data2);
 
     data2 = (int*)realloc(data2, (2 + data2[0] * data2[1]) * sizeof(int));
+    fill_zero(data2);
 
     input_data2(data2);
 

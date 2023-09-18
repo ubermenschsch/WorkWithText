@@ -25,5 +25,6 @@ void print_data2(int * data2);
 
 int char_to_digit(char symbol);
 int is_clear_input(void);
+void fill_zero(int * data2);
 
 #endif // TEXT_H
