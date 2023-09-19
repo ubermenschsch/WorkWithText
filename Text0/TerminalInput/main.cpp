@@ -28,3 +28,5 @@ int main()
 
     free(data2);
 }
+
+// from files, triangle array, func suggest, 
