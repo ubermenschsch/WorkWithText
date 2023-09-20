@@ -1,44 +1,62 @@
 #include "Text.h"
 
+// #define DATA1
+// #define DATA2
+#define DATA3
+
 int main()
 {
     int error = NO_ERROR;
 
-    Data1 data1;
+    #ifdef DATA1
+        Data1 data1;
 
-    error = input_array1(&data1);
-    if (error)
-    {
-        print_error(error);
-        return 1;
-    }
+        error = input_array1(&data1);
+        if (error)
+        {
+            print_error(error);
+            delete_array1(&data1);
+            return 1;
+        }
 
-    print_data1(&data1);
+        print_data1(&data1);
 
-    delete_array(&data1);
+        delete_array1(&data1);
 
-    // input_size1(&data1);
+    #endif // DATA1
 
-    // data1.data = (int*)calloc(data1.size_x * data1.size_y, sizeof(int));
+    #ifdef DATA2
+        int * data2 = nullptr;
+        
+        error = input_array2(&data2);
 
-    // input_data1(&data1);
+        if (error)
+        {
+            print_error(error);
+            delete_array2(data2);
+            return 1;
+        }
 
-    // print_data1(&data1);
+        print_data2(data2);
 
-    // free(data1.data);
-    
-    // int * data2 = (int*)calloc(2, sizeof(int));
+        delete_array2(data2);
+    #endif // DATA2
 
-    // input_size2(data2);
+    #ifdef DATA3
+        Data3 data3;
 
-    // data2 = (int*)realloc(data2, (2 + data2[0] * data2[1]) * sizeof(int));
-    // fill_zero(data2);
+        error = input_array3(&data3);
+        if (error)
+        {
+            print_error(error);
+            delete_array3(&data3);
+            return 1;
+        }
 
-    // input_data2(data2);
+        print_data3(&data3);
 
-    // print_data2(data2);
-
-    // free(data2);
+        delete_array3(&data3);
+    #endif // DATA3
 }
 
 // from files, triangle array, func suggest, 

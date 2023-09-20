@@ -18,7 +18,7 @@ enum Error
     INPUT_SIZE_ANOTHER_SYMBOL_ERROR     = 4,
     INPUT_STRING_ALOTOF_PARAMETRS_ERROR = 5,
     INPUT_STRING_ANOTHER_SYMBOL_ERROR   = 6,
-    CALLOC_ERROR                        = 7,
+    ALLOC_ERROR                         = 7,
 };
 
 struct Data1
@@ -28,22 +28,38 @@ struct Data1
     size_t size_y = 0;
 };
 
+struct Data3
+{
+    int * data = nullptr;
+    int num_string = 0;
+};
+
 int input_array1(Data1 * data1);
 int input_size1(FILE * fp, Data1 * data1);
 int input_data1(FILE * fp, Data1 * data1);
 int input_data_string1(FILE * fp, Data1 * data1, int num_string);
 void print_data1(Data1 * data1);
+void delete_array1(Data1 * data1);
+
+int input_array2(int ** data2);
+int input_size2(FILE * fp, int * data2);
+int input_data2(FILE * fp, int * data2);
+int input_data_string2(FILE * fp, int * data2, int num_string);
+void print_data2(int * data2);
+void delete_array2(int * data2);
+
+int input_array3(Data3 * data3);
+int input_size3(FILE * fp, Data3 * data3);
+int input_data3(FILE * fp, Data3 * data3);
+int input_data_string3(FILE * fp, Data3 * data3, int num_string);
+void print_data3(Data3 * data3);
+void delete_array3(Data3 * data3);
 
 void print_error(int error);
-void delete_array(Data1 * data1);
-
-void input_size2(int * data2);
-void input_data2(int * data2);
-int input_data_string2(int * data2, int num_string);
-void print_data2(int * data2);
 
 int char_to_digit(char symbol);
 int is_clear_input(FILE * fp);
 void fill_zero(int * data2);
+int num_triangle_elements(int num_string);
 
 #endif // TEXT_H
