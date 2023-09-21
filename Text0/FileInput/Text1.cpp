@@ -135,3 +135,33 @@ void delete_array1(Data1 * data1)
     free(data1->data);
     data1 = nullptr;
 }
+
+int getter1(const Data1 * data1, int num_string, int num_coloumn, int * error)
+{
+    assert(data1 != nullptr);
+
+    if (data1->data == nullptr)
+        *error = DATA_NULL_ERROR;
+
+    if (num_string >= data1->size_y || num_coloumn >= data1->size_x)
+        *error = LEAVE_ARRAY_ERROR;
+    
+    return data1->data[num_coloumn + num_string * data1->size_x];
+}
+
+int setter1(Data1 * data1, int num_string, int num_coloumn, int new_data, int * error)
+{
+    assert(data1 != nullptr);
+
+    if (data1->data == nullptr)
+        *error = DATA_NULL_ERROR;
+
+    if (num_string >= data1->size_y || num_coloumn >= data1->size_x)
+        *error = LEAVE_ARRAY_ERROR;
+    
+    int past_data = data1->data[num_coloumn + num_string * data1->size_x];
+
+    data1->data[num_coloumn + num_string * data1->size_x] = new_data;
+
+    return past_data;
+}

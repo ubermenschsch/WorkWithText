@@ -1,8 +1,8 @@
 #include "Text.h"
 
 // #define DATA1
-// #define DATA2
-#define DATA3
+#define DATA2
+// #define DATA3
 
 int main()
 {
@@ -18,6 +18,11 @@ int main()
             delete_array1(&data1);
             return 1;
         }
+
+        int number = getter1(&data1, 2, 1, &error);
+        if (error)
+            return 1;
+        printf("%d\n", number);
 
         print_data1(&data1);
 
@@ -37,6 +42,17 @@ int main()
             return 1;
         }
 
+        int number = 5;
+        number = setter2(data2, 3, 0, number, &error);
+
+        if (error)
+        {
+            print_error(error);
+            return 1;
+        }
+
+        
+
         print_data2(data2);
 
         delete_array2(data2);
@@ -53,8 +69,17 @@ int main()
             return 1;
         }
 
-        print_data3(&data3);
+        int number = 5;
+        number = setter3(&data3, 3, 0, number, &error);
+        if (error)
+        {
+            print_error(error);
+            return 1;
+        }
 
+        printf("%d\n", number);
+        print_data3(&data3);
+        
         delete_array3(&data3);
     #endif // DATA3
 }

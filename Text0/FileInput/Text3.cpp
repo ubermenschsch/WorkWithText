@@ -140,6 +140,36 @@ void delete_array3(Data3 * data3)
     data3 = nullptr;
 }
 
+int getter3(const Data3 * data3, int num_string, int num_coloumn, int * error)
+{
+    assert(data3 != nullptr);
+
+    if (data3->data == nullptr)
+        *error = DATA_NULL_ERROR;
+
+    if (num_string >= data3->num_string || num_coloumn >= data3->num_string)
+        *error = LEAVE_ARRAY_ERROR;
+    
+    return data3->data[num_coloumn + num_triangle_elements(num_string)];
+}
+
+int setter3(Data3 * data3, int num_string, int num_coloumn, int new_data, int * error)
+{
+    assert(data3 != nullptr);
+
+    if (data3->data == nullptr)
+        *error = DATA_NULL_ERROR;
+
+    if (num_string >= data3->num_string || num_coloumn >= data3->num_string)
+        *error = LEAVE_ARRAY_ERROR;
+    
+    int past_data = data3->data[num_coloumn + num_triangle_elements(num_string)];
+
+    data3->data[num_coloumn + num_triangle_elements(num_string)] = new_data;
+
+    return past_data;
+}
+
 int num_triangle_elements(int num_string)
 {
     int num_elements = 0;

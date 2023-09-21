@@ -142,3 +142,29 @@ void fill_zero(int * data2)
     for (int i = 2; i < data2[0] * data2[1]; i++)
         data2[i] = 0;
 }
+
+int getter2(const int * data2, int num_string, int num_coloumn, int * error)
+{
+    if (data2 == nullptr)
+        *error = DATA_NULL_ERROR;
+
+    if (num_string >= data2[1] || num_coloumn >= data2[0])
+        *error = LEAVE_ARRAY_ERROR;
+    
+    return data2[2 + num_coloumn + num_string * data2[0]];
+}
+
+int setter2(int * data2, int num_string, int num_coloumn, int new_data, int * error)
+{
+    if (data2 == nullptr)
+        *error = DATA_NULL_ERROR;
+
+    if (num_string >= data2[1] || num_coloumn >= data2[0])
+        *error = LEAVE_ARRAY_ERROR;
+    
+    int past_data = data2[2 + num_coloumn + num_string * data2[0]];
+
+    data2[2 + num_coloumn + num_string * data2[0]] = new_data;
+
+    return past_data;
+}

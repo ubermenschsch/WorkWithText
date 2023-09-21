@@ -27,6 +27,9 @@ void print_error(int error)
     case ALLOC_ERROR:
         printf("Fail of alloc. Check parameters of calloc function.\n");
         break;
+    case LEAVE_ARRAY_ERROR:
+        printf("You are leaving from array. Input another string and coloumn.\n");
+        break;
     }
 }
 
@@ -49,4 +52,3 @@ int is_clear_input(FILE * fp)
     
     return execc_symbol;
 }
-
