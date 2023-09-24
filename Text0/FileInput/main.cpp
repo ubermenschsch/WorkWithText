@@ -57,12 +57,15 @@ int main()
         }
 
         int number = 5;
-        number = setter_rectangle_with_size(&array, 3, 0, number, &error);
+        number = setter_rectangle_with_size(&array, 2, 0, number, &error);
 
         if (error)
         {
             print_error(error);
-            return 1;
+        }
+        else
+        {
+            printf("%d\n", number);
         }
 
         

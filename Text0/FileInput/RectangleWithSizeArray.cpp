@@ -34,8 +34,6 @@ int input_array_rectangle_with_size(RectangleWithSizeArray * array)
     error = input_size_rectangle_with_size(fp, array);
 
     ERR_RET(error);
-    // if (error)
-    //     return error;
 
     array->data = (int*)realloc(array->data, (2 + (array->data)[0] * (array->data)[1]) * sizeof(int));
     fill_zero(array);
@@ -46,8 +44,6 @@ int input_array_rectangle_with_size(RectangleWithSizeArray * array)
     error = input_data_rectangle_with_size(fp, array);
 
     ERR_RET(error);
-    // if (error)
-    //     return error;
     
     fclose(fp);
 
@@ -82,9 +78,7 @@ static int input_data_rectangle_with_size(FILE * fp, RectangleWithSizeArray * ar
     {
         error = input_data_string_rectangle_with_size(fp, array, num_string);
 
-    ERR_RET(error);
-        // if (error)
-        //     return error;
+        ERR_RET(error);
     }
 
     return NO_ERROR;
@@ -97,39 +91,18 @@ static int input_data_string_rectangle_with_size(FILE * fp, RectangleWithSizeArr
     assert(num_string < array->data[1]);
 
     int error = NO_ERROR;
-    int num_digit_in_string = 0;
 
-    char symbol = getc(fp);
-    while (symbol != '\n' && num_digit_in_string < array->data[0])
+    int entered_num = 0;
+    for (int num_digit_in_string = 0; num_digit_in_string < array->data[0]; num_digit_in_string++)
     {
-        if (isdigit(symbol))
-        {
-            while (isdigit(symbol))
-            {
-                array->data[2 + num_digit_in_string + num_string * array->data[0]] =  array->data[2 + num_digit_in_string + num_string * array->data[0]] * 10 + char_to_digit(symbol);
-                symbol = getc(fp);
-            }
-
-            if (!isspace(symbol))
-                return INPUT_STRING_ANOTHER_SYMBOL_ERROR;
-
-            num_digit_in_string++;
-        }
-
-        else if (!isspace(symbol))
-        {
+        entered_num = fscanf(fp, "%d", &array->data[2 + num_digit_in_string + num_string * array->data[0]]);
+        if (entered_num != 1)
             return INPUT_STRING_ANOTHER_SYMBOL_ERROR;
-        }
-
-        else
-        {
-            symbol = getc(fp);
-        }
     }
 
-    if (symbol != '\n')
-        if (is_clear_input(fp))
-            return INPUT_STRING_ALOTOF_PARAMETRS_ERROR;
+    if (is_clear_input(fp))
+        return INPUT_STRING_ALOTOF_PARAMETRS_ERROR;
+
 
     return NO_ERROR;
 }

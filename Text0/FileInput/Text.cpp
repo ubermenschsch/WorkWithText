@@ -13,16 +13,16 @@ void print_error(int error)
         printf("Send null pointer of array. Check initialization of array.\n");
         break;
     case INPUT_SIZE_ALOTOF_PARAMETRS_ERROR:
-        printf("Send a lot of parametrs. Check size of array.\n");
+        printf("Send a lot of parametrs in input size. Check size of array.\n");
         break;
     case INPUT_SIZE_ANOTHER_SYMBOL_ERROR:
-        printf("Send uncorrect data. Delete non-digit symbols.\n");
+        printf("Send uncorrect data in input size. Delete non-digit symbols.\n");
         break;
     case INPUT_STRING_ALOTOF_PARAMETRS_ERROR:
-        printf("Send a lot of parametrs. Check size of array.\n");
+        printf("Send a lot of parametrs in input string. Check size of array.\n");
         break;
     case INPUT_STRING_ANOTHER_SYMBOL_ERROR:
-        printf("Send uncorrect data. Delete non-digit symbols.\n");
+        printf("Send uncorrect data in input string. Delete non-digit symbols.\n");
         break;
     case ALLOC_ERROR:
         printf("Fail of alloc. Check parameters of calloc function.\n");
