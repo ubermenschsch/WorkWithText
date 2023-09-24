@@ -1,49 +1,63 @@
 #include "Text.h"
 
-// #define DATA1
-#define DATA2
-// #define DATA3
+// #define RECT_ARR
+// #define RECT_SIZE_ARR
+// #define TRIANGLE_ARR
+
+#ifdef RECT_ARR
+    #include "RectangleArray.h"
+#endif // RECT_ARR
+#ifdef RECT_SIZE_ARR
+    #include "RectangleWithSizeArray.h"
+#endif // RECT_SIZE_ARR
+#ifdef TRIANGLE_ARRAY
+    #include "TriangleArray.h"
+#endif // TRIANGLE_ARR
 
 int main()
 {
     int error = NO_ERROR;
 
-    #ifdef DATA1
-        Data1 data1;
+    #ifdef RECT_ARR
+        RectangleArray array;
 
-        error = input_array1(&data1);
+        error = input_array_rectangle(&array);
         if (error)
         {
             print_error(error);
-            delete_array1(&data1);
+            delete_array_rectangle(&array);
             return 1;
         }
 
-        int number = getter1(&data1, 2, 1, &error);
+        int number = getter_rectangle(&array, 2, 1, &error);
         if (error)
-            return 1;
-        printf("%d\n", number);
+        {
+            print_error(error);
+        }
+        else
+        {
+            printf("%d\n", number);
+        }
 
-        print_data1(&data1);
+        print_array_rectangle(&array);
 
-        delete_array1(&data1);
+        delete_array_rectangle(&array);
+    #endif // RECT_ARR
 
-    #endif // DATA1
-
-    #ifdef DATA2
-        int * data2 = nullptr;
+    #ifdef RECT_SIZE_ARR
+        RectangleWithSizeArray array;
         
-        error = input_array2(&data2);
+        error = input_array_rectangle_with_size(&array);
 
         if (error)
         {
             print_error(error);
-            delete_array2(data2);
+            delete_array_rectangle_with_size(&array);
             return 1;
         }
 
         int number = 5;
-        number = setter2(data2, 3, 0, number, &error);
+        number = setter_rectangle_with_size(&array, 3, 0, number, &error);
 
         if (error)
         {
@@ -53,35 +67,37 @@ int main()
 
         
 
-        print_data2(data2);
+        print_array_rectangle_with_size(&array);
 
-        delete_array2(data2);
-    #endif // DATA2
+        delete_array_rectangle_with_size(&array);
+    #endif // RECT_SIZE_ARR
 
-    #ifdef DATA3
-        Data3 data3;
+    #ifdef TRIANGLE_ARRAY
+        TriangleArray array;
 
-        error = input_array3(&data3);
+        error = input_array_triangle(&array);
         if (error)
         {
             print_error(error);
-            delete_array3(&data3);
+            delete_array_triangle(&array);
             return 1;
         }
 
         int number = 5;
-        number = setter3(&data3, 3, 0, number, &error);
+        number = setter_triangle(&array, 3, 0, number, &error);
         if (error)
         {
             print_error(error);
-            return 1;
+        }
+        else
+        {
+            printf("%d\n", number);
         }
 
-        printf("%d\n", number);
-        print_data3(&data3);
+        print_array_triangle(&array);
         
-        delete_array3(&data3);
-    #endif // DATA3
+        delete_array_triangle(&array);
+    #endif // TRIANGLE_ARRAY
 }
 
-// from files, triangle array, func suggest, 
+// naming, static, simple for, 3 .h, if error return in func or macros, data2 in struct

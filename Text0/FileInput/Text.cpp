@@ -9,8 +9,8 @@ void print_error(int error)
     case OPEN_FILE_ERROR:
         printf("Fail of open file. Try another name.\n");
         break;
-    case DATA_NULL_ERROR:
-        printf("Send null pointer of data. Check initialization of data.\n");
+    case ARRAY_NULL_ERROR:
+        printf("Send null pointer of array. Check initialization of array.\n");
         break;
     case INPUT_SIZE_ALOTOF_PARAMETRS_ERROR:
         printf("Send a lot of parametrs. Check size of array.\n");
