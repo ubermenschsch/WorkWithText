@@ -2,7 +2,7 @@
 
 // #define RECT_ARR
 // #define RECT_SIZE_ARR
-// #define TRIANGLE_ARR
+#define TRIANGLE_ARR
 
 #ifdef RECT_ARR
     #include "RectangleArray.h"
@@ -10,7 +10,7 @@
 #ifdef RECT_SIZE_ARR
     #include "RectangleWithSizeArray.h"
 #endif // RECT_SIZE_ARR
-#ifdef TRIANGLE_ARRAY
+#ifdef TRIANGLE_ARR
     #include "TriangleArray.h"
 #endif // TRIANGLE_ARR
 
@@ -72,10 +72,11 @@ int main()
         delete_array_rectangle_with_size(&array);
     #endif // RECT_SIZE_ARR
 
-    #ifdef TRIANGLE_ARRAY
+    #ifdef TRIANGLE_ARR
         TriangleArray array;
 
         error = input_array_triangle(&array);
+
         if (error)
         {
             print_error(error);
@@ -97,7 +98,7 @@ int main()
         print_array_triangle(&array);
         
         delete_array_triangle(&array);
-    #endif // TRIANGLE_ARRAY
+    #endif // TRIANGLE_ARR
 }
 
 // naming, static, simple for, 3 .h, if error return in func or macros, data2 in struct

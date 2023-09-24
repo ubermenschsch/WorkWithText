@@ -1,6 +1,11 @@
 #include "Text.h"
 #include "TriangleArray.h"
 
+static int input_size_triangle(FILE * fp, TriangleArray * array);
+static int input_data_triangle(FILE * fp, TriangleArray * array);
+static int input_data_string_triangle(FILE * fp, TriangleArray * array, int num_string);
+static int num_elements_triangle(int num_string);
+
 #define ERR_RET(code)           \
         if(code) return code    \
 
@@ -43,7 +48,7 @@ int input_array_triangle(TriangleArray * array)
     return NO_ERROR;
 }
 
-int input_size_triangle(FILE * fp, TriangleArray * array)
+static int input_size_triangle(FILE * fp, TriangleArray * array)
 {
     assert(fp != nullptr);
     assert(array != nullptr);
@@ -60,7 +65,7 @@ int input_size_triangle(FILE * fp, TriangleArray * array)
     return NO_ERROR;
 }
 
-int input_data_triangle(FILE * fp, TriangleArray * array)
+static int input_data_triangle(FILE * fp, TriangleArray * array)
 {
     assert(fp != nullptr);
     assert(array != nullptr);
@@ -79,7 +84,7 @@ int input_data_triangle(FILE * fp, TriangleArray * array)
     return NO_ERROR;
 }
 
-int input_data_string_triangle(FILE * fp, TriangleArray * array, int num_string)
+static int input_data_string_triangle(FILE * fp, TriangleArray * array, int num_string)
 {
     assert(fp != nullptr);
     assert(array != nullptr);
@@ -177,7 +182,7 @@ int setter_triangle(TriangleArray * array, int num_string, int num_coloumn, int 
     return past_data;
 }
 
-int num_elements_triangle(int num_string)
+static int num_elements_triangle(int num_string)
 {
     int num_elements = 0;
     if (num_string > 0)

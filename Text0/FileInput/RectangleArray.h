@@ -9,9 +9,6 @@ struct RectangleArray
 };
 
 int input_array_rectangle(RectangleArray * array);
-int input_size_rectangle(FILE * fp, RectangleArray * array);
-int input_data_rectangle(FILE * fp, RectangleArray * array);
-int input_data_string_rectangle(FILE * fp, RectangleArray * array, int num_string);
 void print_array_rectangle(const RectangleArray * array);
 void delete_array_rectangle(RectangleArray * array);
 int getter_rectangle(const RectangleArray * array, int num_string, int num_coloumn, int * error);

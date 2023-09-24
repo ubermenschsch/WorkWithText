@@ -1,6 +1,11 @@
 #include "Text.h"
 #include "RectangleWithSizeArray.h"
 
+static int input_size_rectangle_with_size(FILE * fp, RectangleWithSizeArray * array);
+static int input_data_rectangle_with_size(FILE * fp, RectangleWithSizeArray * array);
+static int input_data_string_rectangle_with_size(FILE * fp, RectangleWithSizeArray * array, int num_string);
+static void fill_zero(RectangleWithSizeArray * array);
+
 #define ERR_RET(code)           \
         if(code) return code    \
 
@@ -49,7 +54,7 @@ int input_array_rectangle_with_size(RectangleWithSizeArray * array)
     return NO_ERROR;
 }
 
-int input_size_rectangle_with_size(FILE * fp, RectangleWithSizeArray * array)
+static int input_size_rectangle_with_size(FILE * fp, RectangleWithSizeArray * array)
 {
     assert(fp != nullptr);
     assert(array != nullptr);
@@ -66,7 +71,7 @@ int input_size_rectangle_with_size(FILE * fp, RectangleWithSizeArray * array)
     return NO_ERROR;
 }
 
-int input_data_rectangle_with_size(FILE * fp, RectangleWithSizeArray * array)
+static int input_data_rectangle_with_size(FILE * fp, RectangleWithSizeArray * array)
 {
     assert(fp != nullptr);
     assert(array != nullptr);
@@ -85,7 +90,7 @@ int input_data_rectangle_with_size(FILE * fp, RectangleWithSizeArray * array)
     return NO_ERROR;
 }
 
-int input_data_string_rectangle_with_size(FILE * fp, RectangleWithSizeArray * array, int num_string)
+static int input_data_string_rectangle_with_size(FILE * fp, RectangleWithSizeArray * array, int num_string)
 {
     assert(fp != nullptr);
     assert(array != nullptr);
@@ -147,12 +152,6 @@ void delete_array_rectangle_with_size(RectangleWithSizeArray * array)
     array = nullptr;
 }
 
-void fill_zero(RectangleWithSizeArray * array)
-{
-    for (int i = 2; i < array->data[0] * array->data[1]; i++)
-        array->data[i] = 0;
-}
-
 int getter_rectangle_with_size(const RectangleWithSizeArray * array, int num_string, int num_coloumn, int * error)
 {
     if (array == nullptr)
@@ -177,4 +176,10 @@ int setter_rectangle_with_size(RectangleWithSizeArray * array, int num_string, i
     array->data[2 + num_coloumn + num_string * array->data[0]] = new_data;
 
     return past_data;
+}
+
+static void fill_zero(RectangleWithSizeArray * array)
+{
+    for (int i = 2; i < array->data[0] * array->data[1]; i++)
+        array->data[i] = 0;
 }

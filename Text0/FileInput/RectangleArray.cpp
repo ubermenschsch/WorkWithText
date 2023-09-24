@@ -1,6 +1,13 @@
 #include "Text.h"
 #include "RectangleArray.h"
 
+static int input_size_rectangle(FILE * fp, RectangleArray * array);
+static int input_data_rectangle(FILE * fp, RectangleArray * array);
+static int input_data_string_rectangle(FILE * fp, RectangleArray * array, int num_string);
+
+#define ERR_RET(code)           \
+        if(code) return code    \
+
 int input_array_rectangle(RectangleArray * array)
 {
     int error = NO_ERROR;
@@ -20,8 +27,9 @@ int input_array_rectangle(RectangleArray * array)
 
     error = input_size_rectangle(fp, array);
 
-    if (error)
-        return error;
+    ERR_RET(error);
+    // if (error)
+    //     return error;
 
     array->data = (int*)calloc(array->size_x * array->size_y, sizeof(int));
 
@@ -30,15 +38,16 @@ int input_array_rectangle(RectangleArray * array)
 
     error = input_data_rectangle(fp, array);
     
-    if (error)
-        return error;
+    ERR_RET(error);
+    // if (error)
+    //     return error;
     
     fclose(fp);
 
     return NO_ERROR;
 }
 
-int input_size_rectangle(FILE * fp, RectangleArray * array)
+static int input_size_rectangle(FILE * fp, RectangleArray * array)
 {
     assert(fp != nullptr);
     assert(array != nullptr);
@@ -55,7 +64,7 @@ int input_size_rectangle(FILE * fp, RectangleArray * array)
     return NO_ERROR;
 }
 
-int input_data_rectangle(FILE * fp, RectangleArray * array)
+static int input_data_rectangle(FILE * fp, RectangleArray * array)
 {
     assert(fp != nullptr);
     assert(array != nullptr);
@@ -66,14 +75,15 @@ int input_data_rectangle(FILE * fp, RectangleArray * array)
     {
         error = input_data_string_rectangle(fp, array, num_string);
 
-        if (error)
-            return error;
+        ERR_RET(error);
+        // if (error)
+        //     return error;
     }
 
     return NO_ERROR;
 }
 
-int input_data_string_rectangle(FILE * fp, RectangleArray * array, int num_string)
+static int input_data_string_rectangle(FILE * fp, RectangleArray * array, int num_string)
 {
     assert(fp != nullptr);
     assert(array != nullptr);
