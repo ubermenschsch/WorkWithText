@@ -8,21 +8,26 @@
 const int MAX_LENGHT           = 46;
 const int MAX_NAME_FILE_LENGHT = 255;
 
+struct Text
+{
+    char * data = nullptr;
+    int num_string = 0;
+    int lenght = MAX_LENGHT;
+};
+
 enum Error
 {
     NO_ERROR                            = 0,
-    OPEN_FILE_ERROR                     = 1,
-    FILE_SIZE_ERROR                     = 2,
-    TEXT_NULL_ERROR                     = 3,
-    INPUT_STRING_ERROR                  = 4,
-    // INPUT_MORE_LENGHT_ERROR             = 3,
-    // INPUT_MORE_STRING_ERROR             = 4,
-    ALLOC_ERROR                         = 7,
-    // LEAVE_ARRAY_ERROR                   = 8,
+    TEXT_NULL_ERROR                     = 1,
+    OPEN_FILE_ERROR                     = 2,
+    FILE_NUM_STRING_ERROR               = 3,
+    ALLOC_ERROR                         = 4,
+    INPUT_STRING_ERROR                  = 5,
 };
 
-int input_text(char * text);
-void print_text(char * text);
+int input_text(Text * text);
+void print_text(Text * text);
 void print_error(int error);
+void delete_text(Text * text);
 
 #endif // TEXT_H
