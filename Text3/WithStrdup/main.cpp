@@ -6,7 +6,10 @@ int main()
 
     Text text;
 
-    error = input_text(&text);
+    char file_name[MAX_NAME_FILE_LENGHT] = {0};
+    input_filename(file_name);
+
+    error = input_text(&text, file_name);
 
     if (error)
     {

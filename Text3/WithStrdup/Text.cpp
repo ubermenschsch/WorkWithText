@@ -1,18 +1,20 @@
 #include "Text.h"
 
-static int file_num_string(FILE * fp);
+static size_t file_num_string(FILE * fp);
 static int input_data(FILE * fp, Text * text);
 
-int input_text(Text * text)
+void input_filename(char * file_name)
+{
+    printf("Input name of file:\n");
+    scanf("%s", file_name);
+}
+
+int input_text(Text * text, char * file_name)
 {
     int error = NO_ERROR;
 
     if (text == nullptr)
         return TEXT_NULL_ERROR;
-    
-    char file_name[MAX_NAME_FILE_LENGHT] = {0};
-    printf("Input name of file:\n");
-    scanf("%s", file_name);
 
     FILE * fp = nullptr;
     fp = fopen(file_name, "r");
@@ -25,7 +27,7 @@ int input_text(Text * text)
     if (text->num_string == 0)
         return FILE_NUM_STRING_ERROR;
     
-    text->buffer = (char*)calloc(text->num_string * text->lenght, sizeof(char));
+    text->buffer = (char*)calloc(text->lenght, sizeof(char));
     text->data = (char**)calloc(text->num_string, sizeof(char*));
 
     if (text->buffer == nullptr)
@@ -49,36 +51,23 @@ static int input_data(FILE * fp, Text * text)
     assert(text != nullptr);
     assert(text->num_string != 0);
 
-    char symbol = 0;
-    int num_element = 0;
     for (int i = 0; i < text->num_string; i++)
     {
-        text->data[i] = text->buffer + num_element;
-
-        symbol = getc(fp);
-        while (symbol != '\n')
-        {
-            text->buffer[num_element] = symbol;
-
-            symbol = getc(fp);
-            num_element++;
-        }
-        
-        text->buffer[num_element] = '\0';
-        num_element++;
+        getline(&text->buffer, &text->lenght, fp);
+        text->data[i] = strdup(text->buffer);
     }
 
-    if (getc(fp) != EOF)
+     if (getc(fp) != EOF)
         return INPUT_STRING_ERROR;
 
     return NO_ERROR;
 }
 
-static int file_num_string(FILE * fp)
+static size_t file_num_string(FILE * fp)
 {
     assert(fp != nullptr);
 
-    int num_string = 0;
+    size_t num_string = 0;
 
     char symbol = getc(fp);
     while (symbol != EOF)
@@ -103,7 +92,7 @@ void print_text(Text * text)
 
     for (int i = 0; i < text->num_string; i++)
     {
-        printf("%s\n", text->data[i]);
+        printf("%s", text->data[i]);
     }
 }
 
@@ -136,6 +125,10 @@ void print_error(int error)
 
 void delete_text(Text * text)
 {
+    for (int i = 0; i < text->num_string; i++)
+    {
+        free(text->data[i]);
+    }
     text->lenght = 0;
     text->num_string = 0;
     free(text->data);

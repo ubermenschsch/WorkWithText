@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 
 const int MAX_LENGHT           = 46;
@@ -12,8 +13,8 @@ struct Text
 {
     char * buffer = nullptr;
     char ** data = nullptr;
-    int num_string = 0;
-    int lenght = MAX_LENGHT;
+    size_t num_string = 0;
+    size_t lenght = MAX_LENGHT;
 };
 
 enum Error
@@ -27,7 +28,9 @@ enum Error
     INPUT_STRING_ERROR                  = 6,
 };
 
-int input_text(Text * text);
+void input_filename(char * file_name);
+
+int input_text(Text * text, char * file_name);
 void print_text(Text * text);
 void print_error(int error);
 void delete_text(Text * text);
