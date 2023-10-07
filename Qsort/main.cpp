@@ -1,36 +1,62 @@
-#include "InputData.h"
 #include "Qsort.h"
+
+// #define FILEINPUT
+#define RANDTEST
+
+#ifdef FILEINPUT
+    #include "InputData.h"
+#endif // FILEINPUT
+#ifdef RANDTEST
+    #include "RandomTest.h"
+#endif // RANDTEST
 
 int main()
 {
-    // char file_name[256] = {};
-    // input_filename(file_name);
+    int error = NO_ERROR;
+
+    #ifdef FILEINPUT
+        char file_name[256] = {};
+        error = input_filename(file_name);
+        if (error)
+        {
+            print_error(error);
+            return 1;
+        }
+    #endif // FILEINPUT
 
     Data data;
     ctor_data(&data);
-    // input_data(file_name, &data);
-    data.size = 100000000;
-    data.data = (elem_t*)calloc(data.size, sizeof(elem_t));
-    for (int i = 0; i < data.size; i++)
+
+    #ifdef FILEINPUT
+        error = input_data(file_name, &data);
+    #endif // FILEINPUT
+
+    #ifdef RANDTEST
+        error = set_data(&data);
+    #endif // RANDTEST
+
+    if (error)
     {
-        srand(i);
-        data.data[i] = rand();
+        print_error(error);
+        dtor_data(&data);
+        return 1;
     }
 
     sort(&data, 0, data.size - 1);
 
-    // data_dump(&data, 0, 0, 0);
+    #ifdef FILEINPUT
+        data_dump(&data, 0, 0, 0);
+    #endif // FILEINPUT
+    #ifdef RANDTEST
+        int result = check_correct(&data);
+        error = print_result(result);
 
-    int couter = 0;
-    for (int i = 0; i < data.size - 1; i++)
-    {
-        if (data.data[i] > data.data[i+1])
+        if (error)
         {
-            couter++;
+            dtor_data(&data);
+            return 1;
         }
-    }
-
-    printf("%d\n", couter);
+    #endif // RANDTEST
 
     dtor_data(&data);
 }

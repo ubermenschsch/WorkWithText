@@ -43,3 +43,27 @@ int input_data(char * file_name, Data * data)
 
     return NO_ERROR;
 }
+
+void print_error(int error)
+{
+    assert(error);
+
+    switch (error)
+    {
+    case INPUT_FILENAME_ERROR:
+        printf("Error of input filename.\n");
+        break;
+    case OPEN_FILE_ERROR:
+        printf("Fail of open file. Check name of file and privacy level.\n");
+        break;
+    case UNCORRECT_SIZE_ERROR:
+        printf("Uncorrect size of data. Check first number in file.\n");
+        break;
+    case ALLOC_ERROR:
+        printf("Fail of allocated memory.\n");
+        break;
+    case INPUT_DATA_ERROR:
+        printf("Fail of input data. Check absense of non-didgit symbol and number of digit(first number in file).\n");
+        break;
+    }
+}
