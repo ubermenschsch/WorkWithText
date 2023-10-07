@@ -5,9 +5,13 @@ int main()
     char file_name[256] = {};
     input_filename(file_name);
 
-    int size = 0;
-    int * data = nullptr;
-    input_data(file_name, &data, &size);
+    Data data;
+    ctor_data(&data);
+    input_data(file_name, &data);
 
-    sort(data, 0, size - 1);
+    // data_dump(&data, 0, data.size - 1, 2);
+
+    sort(&data, 0, data.size - 1);
+
+    dtor_data(&data);
 }
