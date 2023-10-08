@@ -7,7 +7,7 @@ int set_data(Data * data)
     int error = NO_ERROR;
 
     printf("Input numbers of digit to test: ");
-    error = scanf("%d", &data->size);
+    error = scanf("%ld", &data->size);
 
     if (error == 0 || data->size <= 0)
         return INPUT_SIZE_ERROR;

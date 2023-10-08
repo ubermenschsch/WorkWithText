@@ -1,7 +1,7 @@
 #ifndef INPUTDATA_H
 #define INPUTDATA_H
 
-#include "Qsort.h"
+#include "Common.h"
 
 #include <stdio.h>
 #include <stdlib.h>

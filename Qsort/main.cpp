@@ -1,4 +1,5 @@
 #include "Qsort.h"
+#include "Common.h"
 
 // #define FILEINPUT
 #define RANDTEST
@@ -42,11 +43,12 @@ int main()
         return 1;
     }
 
-    sort(&data, 0, data.size - 1);
+    sort(data.data, data.size, sizeof(elem_t), comparator_int);
 
     #ifdef FILEINPUT
-        data_dump(&data, 0, 0, 0);
+        data_dump(data.data, data.size, 0, 0, 0);
     #endif // FILEINPUT
+
     #ifdef RANDTEST
         int result = check_correct(&data);
         error = print_result(result);

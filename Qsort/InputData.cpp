@@ -22,7 +22,7 @@ int input_data(char * file_name, Data * data)
     if (fp == nullptr)
         return OPEN_FILE_ERROR;
 
-    error = fscanf(fp, "%d", &data->size);
+    error = fscanf(fp, "%ld", &data->size);
 
     if (data->size <= 0 || error == 0 || error == EOF)
         return UNCORRECT_SIZE_ERROR;

@@ -1,4 +1,4 @@
-#include "Qsort.h"
+#include "Common.h"
 
 #define KNRM  "\x1B[0m"
 #define KRED  "\x1B[31m"
@@ -10,34 +10,34 @@
 #define KWHT  "\x1B[37m"
 
 
-void data_dump(Data * data, int left, int right, int mid)
+void data_dump(int * first, size_t number, size_t left, size_t right, size_t mid)
 {
-    for (int i = 0; i < data->size; i++)
+    for (size_t i = 0; i < number; i++)
     {
-        printf("%s%d ", KNRM, i);
+        printf("%s%ld ", KNRM, i);
     }
     printf("\n");
-    for (int i = 0; i < data->size; i++)
+    for (size_t i = 0; i < number; i++)
     {
         if (i == mid)
         {
-            printf("%s%d ", KRED, data->data[i]);
+            printf("%s%d ", KRED, ((int*)first)[i]);
         }
         else if (i == right)
         {
-            printf("%s%d ", KYEL, data->data[i]);
+            printf("%s%d ", KYEL, ((int*)first)[i]);
         }
         else if (i == left)
         {
-            printf("%s%d ", KYEL, data->data[i]);
+            printf("%s%d ", KYEL, ((int*)first)[i]);
         }
         else if (i < left || i > right)
         {
-            printf("%s%d ", KGRN, data->data[i]);
+            printf("%s%d ", KGRN, ((int*)first)[i]);
         }
         else
         {
-            printf("%s%d ", KMAG, data->data[i]);
+            printf("%s%d ", KMAG, ((int*)first)[i]);
         }
     }
     printf("%s\n\n", KNRM);

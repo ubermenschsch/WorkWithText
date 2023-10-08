@@ -1,7 +1,7 @@
 #ifndef RANDOMTEST_H
 #define RANDOMTEST_H
 
-#include "Qsort.h"
+#include "Common.h"
 
 enum Error
 {

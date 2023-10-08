@@ -1,64 +1,55 @@
 #include "Qsort.h"
 
-static int partition(Data * data, int left, int right);
-static int swap(Data * data, int left, int right, int mid);
-static void last_swap(Data * data, int left, int right);
+static size_t partition(void * first, size_t number, size_t size, int (*comparator) (const void *, const void *));
+static size_t swap(void * first, size_t left, size_t right, size_t mid, size_t size);
 
-void ctor_data(Data * data)
+static void * void_pointer(void * first, size_t shift, size_t size_elem);
+
+void sort(void * first, size_t number, size_t size, int (*comparator) (const void *, const void *))
 {
-    data->data = nullptr;
-    data->size = 0;
-}
+    assert(first != nullptr);
+    assert(number > 0);
+    assert(size > 0);
 
-void dtor_data(Data * data)
-{
-    free(data->data);
-    data->size = -1;
-}
+    size_t left  = 0;
+    size_t right = number - 1;
 
-void sort(Data * data, int left, int right)
-{
-    assert(data != nullptr);
-    assert(data->data != nullptr);
-    assert(data->size > 0);
+    size_t mid = partition(first, number, size, comparator);
 
-    int mid = partition(data, left, right);
-
-    if (mid - left > 0)
+    if ((mid + 1) > 1)
     {
-        sort(data, left, mid);
+        sort(first, mid + 1, size, comparator);
     }
-    if (right - (mid + 1) > 0)
+    if ((number - (mid + 1)) > 1)
     {
-        sort(data, mid + 1, right);
+        sort(void_pointer(first, mid + 1, size), number - (mid + 1), size, comparator);
     }
 }
 
-static int partition(Data * data, int left, int right)
+static size_t partition(void * first, size_t number, size_t size, int (*comparator) (const void *, const void *))
 {
-    assert(data != nullptr);
-    assert(data->data != nullptr);
-    assert(data->size > 0);
+    assert(first != nullptr);
+    assert(number > 0);
+    assert(size > 0);
+
+    size_t left  = 0;
+    size_t right = number - 1;
     
-    int mid = (left + right) / 2;
-    int mid_value = data->data[mid];
+    size_t mid = (left + right) / 2;
 
     while (left < right)
-    {
-        // data_dump(data, left, right, mid);
-        if (data->data[left] < mid_value)
+    {       
+        if (comparator(void_pointer(first, left, size), void_pointer(first, mid, size)) < 0)
         {
             left++;
         }
-        else if (data->data[right] > mid_value)
+        else if (comparator(void_pointer(first, right, size), void_pointer(first, mid, size)) > 0)
         {
             right--;
         }
-        else if (data->data[left] != data->data[right])
+        else if (comparator(void_pointer(first, left, size), void_pointer(first, right, size)) != 0)
         {
-            // data_dump(data, left, right, mid);
-            mid = swap(data, left, right, mid);
-            // data_dump(data, left, right, mid);
+            mid = swap(first, left, right, mid, size);
         }
         else
         {
@@ -77,16 +68,18 @@ static int partition(Data * data, int left, int right)
     return mid;
 }
 
-static int swap(Data * data, int left, int right, int mid)
+static size_t swap(void * first, size_t left, size_t right, size_t mid, size_t size)
 {
-    assert(data != nullptr);
-    assert(data->data != nullptr);
-    assert(data->size > 0);
-    
-    int swap_data = data->data[right];
-    data->data[right] = data->data[left];
-    data->data[left] = swap_data;
+    assert(first != nullptr);
+    assert(size > 0);
+    assert(right > left);
 
+    void * swap_data = calloc(1, size);
+
+    memmove(swap_data, void_pointer(first, left, size), size);
+    memmove(void_pointer(first, left, size), void_pointer(first, right, size), size);
+    memmove(void_pointer(first, right, size), swap_data, size);
+    
     if (mid == left)
     {
         mid = right;
@@ -99,15 +92,23 @@ static int swap(Data * data, int left, int right, int mid)
     return mid;
 }
 
-static void last_swap(Data * data, int left, int right)
+int comparator_int(const void * a, const void * b)
 {
-    assert(data != nullptr);
-    assert(data->data != nullptr);
-    assert(data->size > 0);
-    assert(right - left == 1);
+    assert(a != nullptr);
+    assert(b != nullptr);
+    
+    return *((int*)a) - *((int*)b);
+}
 
-    if (data->data[left] <= data->data[right])
-    {
-        swap(data, left, right, 0);
-    }
+int comparator_string(const void * a, const void * b)
+{
+    assert(a != nullptr);
+    assert(b != nullptr);
+
+    return strcmp((char*)a, (char*)b);
+}
+
+static void * void_pointer(void * first, size_t shift, size_t size_elem)
+{
+    return (void*)((char*)first + shift * size_elem);
 }
