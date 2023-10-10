@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
+
 const int MAX_NAME_FILE_LENGHT = 255;
 
 struct Text
@@ -31,7 +32,7 @@ void dtor_text(Text * text);
 
 void input_filename(char * file_name);
 
-int input_text(Text * text, char * filename);
+int input_text(Text * text, const char * filename);
 // void print_text(Text * text);
 int output_text(Text * text);
 void print_error(int error);

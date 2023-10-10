@@ -19,7 +19,7 @@ int main()
         return 1;
     }
 
-    sort(text.data, text.num_string, sizeof(char*), comparator_string);
+    sort(text.data, text.num_string, sizeof(char*), comparator_rhyme);
 
     error = output_text(&text);
     if (error)

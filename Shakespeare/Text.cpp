@@ -31,7 +31,7 @@ void input_filename(char * file_name)
     scanf("%s", file_name);
 }
 
-int input_text(Text * text, char * filename)
+int input_text(Text * text, const char * filename)
 {
     int error = NO_ERROR;
 
@@ -40,17 +40,14 @@ int input_text(Text * text, char * filename)
 
     FILE * fp = nullptr;
     fp = fopen(filename, "r");
-
     if (fp == nullptr)
         return OPEN_FILE_ERROR;
 
     text->size_buffer = file_size(fp);
-
     if (text->size_buffer == 0)
         return FILE_SIZE_ERROR;
     
     text->buffer = (char*)calloc(text->size_buffer, sizeof(char));
-
     if (text->buffer == nullptr)
         return ALLOC_BUFF_ERROR;
     
@@ -60,12 +57,10 @@ int input_text(Text * text, char * filename)
     cout_num_string(text);
 
     text->data = (char**)calloc(text->num_string, sizeof(char*));
-
     if (text->data == nullptr)
         return ALLOC_DATA_ERROR;
 
     error = input_data(text);
-
     if (error)
         return INPUT_STRING_ERROR;
 
@@ -77,20 +72,17 @@ static long file_size(FILE * fp)
     int error = 0;
 
     error = fseek(fp, 0L, SEEK_END);
-
-    if (error != 0)
+    if (error != NO_ERROR)
         return 0;
     
     long file_size = ftell(fp);
-
     if (file_size == -1L)
         return 0;
 
     error = fseek(fp, 0L, SEEK_SET);
-
     if (error != 0)
         return 0;
-    
+
     return file_size;
 }
 
@@ -144,16 +136,16 @@ static int input_data(Text * text)
     return NO_ERROR;
 }
 
-void print_text(Text * text)
-{
-    assert(text != nullptr);
-    assert(text->data != nullptr);
+// void print_text(Text * text)
+// {
+//     assert(text != nullptr);
+//     assert(text->data != nullptr);
 
-    for (int i = 0; i < text->num_string; i++)
-    {
-        printf("%s\n", text->data[i]);
-    }
-}
+//     for (int i = 0; i < text->num_string; i++)
+//     {
+//         printf("%s\n", text->data[i]);
+//     }
+// }
 
 int output_text(Text * text)
 {
